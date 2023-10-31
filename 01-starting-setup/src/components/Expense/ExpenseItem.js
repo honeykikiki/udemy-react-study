@@ -1,5 +1,5 @@
 import ExpenseDate from './ExpenseDate';
-import Card from './Card';
+import Card from '../Ui/Card';
 import './ExpenseItem.css';
 
 export default function ExpenseItem({ title, amount, date }) {
