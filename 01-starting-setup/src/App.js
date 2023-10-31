@@ -12,8 +12,10 @@ function App() {
     <div>
       <h2>Let's get started!</h2>
       {expenses.map((v) => {
-        return <ExpenseItem title={v.title} amount={v.amount} date={v.date} />; // 필요한 정보만 받는 방법
-        // return <ExpenseItem expenses={v} />; // 전체를 한번에 받는 방법
+        // 필요한 정보만 받는 방법
+        return <ExpenseItem title={v.title} amount={v.amount} date={v.date} />;
+        // 전체를 한번에 받는 방법
+        // return <ExpenseItem expenses={v} />;
       })}
     </div>
   );

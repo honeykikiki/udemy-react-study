@@ -1,9 +1,10 @@
 import ExpenseDate from './ExpenseDate';
+import Card from './Card';
 import './ExpenseItem.css';
 
 export default function ExpenseItem({ title, amount, date }) {
   return (
-    <div className="expense-item">
+    <Card className="expense-item">
       <ExpenseDate date={date} />
       <div className="expense-item__description">
         <h2>{title}</h2>
@@ -11,7 +12,7 @@ export default function ExpenseItem({ title, amount, date }) {
           ${amount.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}
         </div>
       </div>
-    </div>
+    </Card>
   );
 }
 
