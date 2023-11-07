@@ -14,26 +14,35 @@ export default function ExpenseItem(props) {
     console.log('click');
   };
 
+  const filterChangerHandler = (selectedYear) => {
+    setFilteredYear(selectedYear.value);
+  };
+
   return (
     <div>
-      <ExpensesFilter />
-      {props.expense.map((v) => {
-        return (
-          <Card className="expense-item">
-            <ExpenseDate date={v.date} />
-            <div className="expense-item__description">
-              <h2>{v.title}</h2>
-              <div className="expense-item__price">
-                $
-                {v.amount
-                  .toString()
-                  .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}
+      <Card>
+        <ExpensesFilter
+          selected={filteredYear}
+          dropdownChangeHandler={filterChangerHandler}
+        />
+        {props.expense.map((v) => {
+          return (
+            <div key={v.id} className="card expense-item">
+              <ExpenseDate date={v.date} />
+              <div className="expense-item__description">
+                <h2>{v.title}</h2>
+                <div className="expense-item__price">
+                  $
+                  {v.amount
+                    .toString()
+                    .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}
+                </div>
               </div>
+              <button onClick={clickHandle}>Change Title</button>
             </div>
-            <button onClick={clickHandle}>Change Title</button>
-          </Card>
-        );
-      })}
+          );
+        })}
+      </Card>
     </div>
   );
 }
