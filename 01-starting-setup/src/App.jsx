@@ -9,24 +9,16 @@ function App() {
     { id: 4, title: '저녁', amount: 12500, date: new Date(2023, 3, 2) },
   ];
 
+  const addExpenseHandler = (expense) => {
+    console.log('App.jsx');
+    console.log(expense);
+  };
+
   return (
     <div>
       <h2>Let's get started!</h2>
-      <NewExpense />
-      
-      {expenses.map((v) => {
-        // 필요한 정보만 받는 방법
-        return (
-          <ExpenseItem
-            key={v.id}
-            title={v.title}
-            amount={v.amount}
-            date={v.date}
-          />
-        );
-        // 전체를 한번에 받는 방법
-        // return <ExpenseItem expenses={v} />;
-      })}
+      <NewExpense onAddExpense={addExpenseHandler} />
+      <ExpenseItem expense={expenses} />
     </div>
   );
 }

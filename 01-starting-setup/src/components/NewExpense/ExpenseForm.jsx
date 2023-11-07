@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import './ExpenseForm.css';
 
-export default function ExpenseForm() {
-  const [title, setTitle] = useState('');
-  const [amount, setAmount] = useState('');
-  const [date, setDate] = useState(new Date());
+export default function ExpenseForm(props) {
+  const [title, setEnterTitle] = useState('');
+  const [amount, setEnterAmount] = useState('');
+  const [date, setEnterDate] = useState(new Date());
+
   // const [userInput, setUserInput] = useState({
   //   enterTitle: '',
   //   enterAmount: '',
@@ -12,7 +13,7 @@ export default function ExpenseForm() {
   // });
 
   const titleChangeHandler = (event) => {
-    setTitle(event.target.value);
+    setEnterTitle(event.target.value);
     // setUserInput({
     //   ...userInput,
     //   enterTitle: event.target.value,
@@ -25,27 +26,63 @@ export default function ExpenseForm() {
     // });
     // console.log(userInput);
   };
+
   const amountChangeHandler = (event) => {
-    setAmount(event.target.value);
+    setEnterAmount(event.target.value);
     // setUserInput({
     //   ...userInput,
     //   enterAmount: event.target.value,
     // });
   };
+
   const dateChangeHandler = (event) => {
-    setDate(event.target.value);
+    setEnterDate(event.target.value);
     // setUserInput({
     //   ...userInput,
     //   enterDate: event.target.value,
     // });
   };
 
+  // const inputChangeHandler = (identifier, value) => {
+  //   if (identifier === 'title') {
+  //     setEnterTitle(value);
+  //   }
+
+  //   if (identifier === 'date') {
+  //     setEnterDate(value);
+  //   }
+
+  //   if (identifier === 'amount') {
+  //     setEnterAmount(value);
+  //   }
+  // };
+  const submitHandler = (event) => {
+    event.preventDefault();
+
+    const expenseData = {
+      enterTitle: title,
+      enterAmount: amount,
+      enterDate: new Date(date),
+    };
+
+    console.log(expenseData);
+    props.onSaveExpenseData(expenseData);
+    setEnterTitle('');
+    setEnterAmount('');
+    setEnterDate('');
+  };
+
   return (
-    <form action="">
+    <form onSubmit={submitHandler}>
       <div className="new-expense__controls">
         <div className="new-expense__control">
           <label>Title</label>
-          <input type="text" onChange={titleChangeHandler} />
+          <input
+            type="text"
+            value={title}
+            onChange={titleChangeHandler}
+            // onChange={(event) => inputChangeHandler('title', event.target.value)}
+          />
         </div>
         <div className="new-expense__control">
           <label>Amount</label>
@@ -53,12 +90,20 @@ export default function ExpenseForm() {
             type="number"
             min={0}
             step={1}
+            value={amount}
             onChange={amountChangeHandler}
+            // onChange={(event) => inputChangeHandler('amount', event.target.value)}
           />
         </div>
         <div className="new-expense__control">
           <label>Date</label>
-          <input type="date" max={date} onChange={dateChangeHandler} />
+          <input
+            type="date"
+            max={date}
+            value={date}
+            onChange={dateChangeHandler}
+            // onChange={(event) => inputChangeHandler('date', event.target.value)}
+          />
         </div>
       </div>
       <div className="new-expense__actions">

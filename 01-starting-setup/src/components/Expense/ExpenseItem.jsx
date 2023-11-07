@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import ExpenseDate from './ExpenseDate.jsx';
 import Card from '../Ui/Card';
 import './ExpenseItem.css';
+import ExpensesFilter from './ExpensesFilter.jsx';
 
 export default function ExpenseItem(props) {
   // let title = props.title;
-  const [title, setTitle] = useState(props.title);
+  const [title, setTitle] = useState();
+  const [filteredYear, setFilteredYear] = useState();
 
   const clickHandle = () => {
     setTitle('Update Expense');
@@ -13,19 +15,26 @@ export default function ExpenseItem(props) {
   };
 
   return (
-    <Card className="expense-item">
-      <ExpenseDate date={props.date} />
-      <div className="expense-item__description">
-        <h2>{title}</h2>
-        <div className="expense-item__price">
-          $
-          {props.amount
-            .toString()
-            .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}
-        </div>
-      </div>
-      <button onClick={clickHandle}>Change Title</button>
-    </Card>
+    <div>
+      <ExpensesFilter />
+      {props.expense.map((v) => {
+        return (
+          <Card className="expense-item">
+            <ExpenseDate date={v.date} />
+            <div className="expense-item__description">
+              <h2>{v.title}</h2>
+              <div className="expense-item__price">
+                $
+                {v.amount
+                  .toString()
+                  .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}
+              </div>
+            </div>
+            <button onClick={clickHandle}>Change Title</button>
+          </Card>
+        );
+      })}
+    </div>
   );
 }
 
